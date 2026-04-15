@@ -1,10 +1,8 @@
-const pool = require('./db.js');
-const fs = require('fs');
+const { scrape } = require('./scrapers/career-junction');
+const config = require('./config');
+const pool = require('./db');
 
-const seedJobs = async () => {
-    const jobs = JSON.parse(fs.readFileSync('../scraper/data.json', 'utf8'));
-    console.log(`Found ${jobs.length} jobs to seed`);
-
+const seedJobs = async (jobs) => {
     let inserted = 0;
     let skipped = 0;
 
@@ -13,7 +11,7 @@ const seedJobs = async () => {
         try {
             await conn.beginTransaction();
 
-            // Check for duplicate using hash
+            // Check for duplicate
             const [existing] = await conn.query(
                 'SELECT id FROM jobs WHERE hash = ?', [job.hash]
             );
@@ -54,19 +52,16 @@ const seedJobs = async () => {
 
             // Insert skills and link to job
             for (const skillName of job.skills) {
-                // Insert skill if it doesn't exist
                 await conn.query(
                     'INSERT IGNORE INTO skills (name) VALUES (?)',
                     [skillName]
                 );
 
-                // Get skill id
                 const [skill] = await conn.query(
                     'SELECT id FROM skills WHERE name = ?',
                     [skillName]
                 );
 
-                // Link skill to job
                 await conn.query(
                     'INSERT IGNORE INTO job_skills (job_id, skill_id) VALUES (?, ?)',
                     [jobId, skill[0].id]
@@ -85,8 +80,50 @@ const seedJobs = async () => {
         }
     }
 
-    console.log(`\nDone — ${inserted} inserted, ${skipped} skipped (duplicates)`);
-    process.exit(0);
+    return { inserted, skipped };
 };
 
-seedJobs();
+// Lambda handler — this is what AWS calls
+exports.handler = async (event) => {
+    try {
+        const enabledSources = config.sources.filter(s => s.enabled);
+
+        let totalInserted = 0;
+        let totalSkipped = 0;
+
+        for (const source of enabledSources) {
+            console.log(`Scraping ${source.name}...`);
+            const jobs = await scrape(source.params);
+            console.log(`Found ${jobs.length} jobs from ${source.name}`);
+
+            const { inserted, skipped } = await seedJobs(jobs);
+            totalInserted += inserted;
+            totalSkipped += skipped;
+        }
+
+        const result = {
+            statusCode: 200,
+            body: `Done — ${totalInserted} inserted, ${totalSkipped} skipped`
+        };
+
+        console.log(result.body);
+        return result;
+
+    } catch (error) {
+        console.error('Handler error:', error);
+        return {
+            statusCode: 500,
+            body: `Error: ${error.message}`
+        };
+    } finally {
+        await pool.end();
+    }
+};
+
+// Allow local testing with: node index.js
+if (require.main === module) {
+    exports.handler().then(result => {
+        console.log(result.body);
+        process.exit(0);
+    });
+}
