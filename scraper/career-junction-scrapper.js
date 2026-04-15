@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
-const config = requiure('./config.js')
+const config = require('./config.js')
 
 
 const headers = {
@@ -182,4 +182,12 @@ const scrape = async (url) => {
     console.log(`\nDone — ${jobs.length} jobs scraped`);
 };
 
-scrape('https://www.careerjunction.co.za/jobs/results?keywords=junior+software&autosuggestEndpoint=%2Fautosuggest&location=16464&category=16&btnSubmit=+');
+const run = async () => {
+    for (const source of enabledSources) {
+        const url = buildUrl(source);
+        console.log(`Scraping ${source.name}...`);
+        await scrape(url, source.name);
+    }
+}
+
+run();

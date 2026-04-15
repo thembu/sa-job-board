@@ -5,6 +5,8 @@ module.exports = {
             enabled: true,
             baseUrl: 'https://www.careerjunction.co.za/jobs/results',
             params: {
+                keywords: 'junior software Developer',
+                autosuggestEndpoint: '/autosuggest',
                 Category: 16,        // Information Technology
                 Location: 2747,      // Gauteng
                 SortBy: 'Relevance',
