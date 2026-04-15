@@ -1,12 +1,16 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
+const config = requiure('./config.js')
+
 
 const headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
     'Accept-Language': 'en-ZA,en;q=0.9',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 };
+
+
 
 // Extract salary min/max from string like "R60,000 - R80,000 per month"
 const parseSalary = (salaryStr) => {
@@ -81,6 +85,16 @@ const generateHash = (title, company, datePosted) => {
         .update(`${title}${company}${datePosted}`)
         .digest('hex');
 };
+
+
+// Build URL from config
+const buildUrl = (source) => {
+    const params = new URLSearchParams(source.params);
+    return `${source.baseUrl}?${params.toString()}`;
+}
+
+const enabledSources = config.sources.filter(s => s.enabled);
+
 
 const scrape = async (url) => {
     const { data } = await axios.get(url, { headers });
