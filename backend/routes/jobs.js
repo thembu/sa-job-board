@@ -18,14 +18,50 @@ router.get("/", async (req, res) => {
       keyword,
     } = req.query;
 
+    console.log("query received:", req.query);
+   console.log("is_graduate_friendly value:", is_graduate_friendly, typeof is_graduate_friendly);
+
     const pageNum = parseInt(page) || 1;
     const limitNum = parseInt(limit) || 20;
     const offset = (pageNum - 1) * limitNum;
 
-    const [rows] = await pool.query("SELECT * from jobs LIMIT ? OFFSET ?", [
-      limitNum,
-      offset,
-    ]);
+    const conditions = [];
+    const values = [];
+
+    if (keyword) {
+      conditions.push("(title LIKE ? OR company LIKE ?)");
+      values.push(`%${keyword}%`, `%${keyword}%`);
+    }
+    if (location) {
+      conditions.push("location LIKE ?");
+      values.push(`%${location}%`);
+    }
+    if (job_type) {
+      conditions.push("job_type = ?");
+      values.push(job_type);
+    }
+    if (experience_level) {
+      conditions.push("experience_level = ?");
+      values.push(experience_level);
+    }
+    if (is_graduate_friendly === "true") {
+      conditions.push("is_graduate_friendly = 1");
+    }
+    if (salary_min) {
+      conditions.push("salary_min >= ?");
+      values.push(parseInt(salary_min));
+    }
+    if (salary_max) {
+      conditions.push("salary_max <= ?");
+      values.push(parseInt(salary_max));
+    }
+
+    const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+
+    const [rows] = await pool.query(
+      `SELECT * FROM jobs ${where} ORDER BY date_posted DESC LIMIT ? OFFSET ?`,
+      [...values, limitNum, offset]
+    );
 
     if (rows.length > 0) {
       res.status(200).json({

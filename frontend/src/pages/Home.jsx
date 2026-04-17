@@ -26,30 +26,36 @@ export default function Home() {
 
   const [search, setSearch] = useState("");
 
-  const fetchJobs = async (p = 1) => {
-    setLoading(true);
-    try {
-      const params = { page: p, limit: 20, ...filters };
-      if (search) params.keyword = search;
-      const res = await axios.get(`${API}/jobs`, { params });
-      setJobs(res.data.data);
-      setTotal(res.data.length);
-    } catch (err) {
+
+const fetchJobs = async (p = 1) => {
+  setLoading(true);
+  try {
+    const params = { page: p, limit: 20, ...filters };
+    if (search) params.keyword = search;
+    const res = await axios.get(`${API}/jobs`, { params });
+    setJobs(res.data.data);
+    setTotal(res.data.length);
+  } catch (err) {
+    if (err.response?.status === 404) {
+      setJobs([]);
+      setTotal(0);
+    } else {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
-  useEffect(() => {
-    fetchJobs(page);
-  }, [page, filters]);
+useEffect(() => {
+  fetchJobs(page, filters, search);
+}, [page, filters]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setPage(1);
-    fetchJobs(1);
-  };
+const handleSearch = (e) => {
+  e.preventDefault();
+  setPage(1);
+  fetchJobs(1, filters, search);
+};
 
   const handleJobClick = async (job) => {
     setSelectedJob(job);
@@ -74,29 +80,35 @@ export default function Home() {
     setPage(1);
   };
 
+  const clearFilters = () => {
+    setFilters({ keyword: "", job_type: "", experience_level: "", is_graduate_friendly: "" });
+    setSearch("");
+    setPage(1);
+  };
+
+  const hasActiveFilters =
+    filters.experience_level || filters.job_type || filters.is_graduate_friendly || search;
+
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
       {/* Nav */}
-
-      {/* Nav */}
-<nav className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
-  <div className="flex items-center gap-2">
-    <div className="w-7 h-7 bg-amber-500 rounded-md flex items-center justify-center">
-      <span className="text-black font-black text-xs">SA</span>
-    </div>
-    <span className="font-bold text-white tracking-tight">DevJobs</span>
-  </div>
-  <div className="flex items-center gap-6">
-    <a href="/" className="text-amber-400 text-sm font-semibold border-b border-amber-400 pb-0.5">Jobs</a>
-    <a href="/skills" className="text-zinc-400 hover:text-white text-sm transition-colors">Skills</a>
-    <a href="/salaries" className="text-zinc-400 hover:text-white text-sm transition-colors">Salaries</a>
-    <div className="flex items-center gap-1 text-zinc-500 text-xs ml-2">
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
-      Updated nightly
-    </div>
-  </div>
-</nav>
-      
+      <nav className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 bg-amber-500 rounded-md flex items-center justify-center">
+            <span className="text-black font-black text-xs">SA</span>
+          </div>
+          <span className="font-bold text-white tracking-tight">DevJobs</span>
+        </div>
+        <div className="flex items-center gap-6">
+          <a href="/" className="text-amber-400 text-sm font-semibold border-b border-amber-400 pb-0.5">Jobs</a>
+          <a href="/skills" className="text-zinc-400 hover:text-white text-sm transition-colors">Skills</a>
+          <a href="/salaries" className="text-zinc-400 hover:text-white text-sm transition-colors">Salaries</a>
+          <div className="flex items-center gap-1 text-zinc-500 text-xs ml-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+            Updated nightly
+          </div>
+        </div>
+      </nav>
 
       {/* Hero */}
       <div className="px-6 pt-12 pb-8 max-w-4xl mx-auto text-center">
@@ -167,6 +179,14 @@ export default function Home() {
           >
             Graduate friendly
           </button>
+          {hasActiveFilters && (
+            <button
+              onClick={clearFilters}
+              className="text-xs px-3 py-1.5 rounded-full border border-zinc-700 text-zinc-500 hover:text-zinc-300 hover:border-zinc-500 transition-colors ml-1"
+            >
+              ✕ Clear
+            </button>
+          )}
         </div>
 
         {/* Job list */}
@@ -183,6 +203,14 @@ export default function Home() {
           <div className="text-center py-20 text-zinc-500">
             <p className="text-lg">No jobs found</p>
             <p className="text-sm mt-1">Try adjusting your filters</p>
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="mt-4 text-xs px-4 py-2 rounded-full border border-zinc-700 text-zinc-400 hover:border-zinc-500 transition-colors"
+              >
+                Clear all filters
+              </button>
+            )}
           </div>
         ) : (
           <div className="grid gap-3">

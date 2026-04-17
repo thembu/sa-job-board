@@ -1,6 +1,7 @@
 const { scrape } = require('./scrapers/career-junction');
 const config = require('./config');
-const pool = require('./db');
+const pool = require('../backend/db');
+require('dotenv').config({ path: '../backend/.env' });
 
 const seedJobs = async (jobs) => {
     let inserted = 0;

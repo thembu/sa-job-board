@@ -15,15 +15,7 @@ const parseJobType = (positionStr) => {
     return null;
 };
 
-// Extract experience level from position string
-const parseExperienceLevel = (positionStr, titleStr) => {
-    const combined = `${positionStr} ${titleStr}`.toLowerCase();
-    if (combined.includes('graduate') || combined.includes('entry')) return 'graduate';
-    if (combined.includes('junior')) return 'junior';
-    if (combined.includes('intermediate')) return 'intermediate';
-    if (combined.includes('senior') || combined.includes('lead') || combined.includes('expert')) return 'senior';
-    return null;
-};
+
 
 // Extract experience years from description like "3-5 years"
 const parseExperienceYears = (descriptionStr) => {
@@ -35,17 +27,36 @@ const parseExperienceYears = (descriptionStr) => {
     return { min: null, max: null };
 };
 
-// Check if job is graduate friendly
+const parseExperienceLevel = (positionStr, titleStr) => {
+    // Check title first — it's more reliable
+    const title = titleStr.toLowerCase();
+    if (title.includes('senior') || title.includes('lead') || title.includes('expert') || title.includes('principal')) return 'senior';
+    if (title.includes('intermediate') || title.includes('mid-level') || title.includes('mid level')) return 'intermediate';
+    if (title.includes('junior') || title.includes('jr ')) return 'junior';
+    if (title.includes('graduate') || title.includes('intern')) return 'graduate';
+
+    // Fall back to position string only if title has no level info
+    const position = positionStr ? positionStr.toLowerCase() : '';
+    if (position.includes('senior') || position.includes('lead')) return 'senior';
+    if (position.includes('intermediate')) return 'intermediate';
+    if (position.includes('junior')) return 'junior';
+    if (position.includes('graduate') || position.includes('entry')) return 'graduate';
+
+    return null;
+};
+
 const parseGraduateFriendly = (descriptionStr, experienceLevel) => {
+    if (experienceLevel === 'senior' || experienceLevel === 'intermediate') return false;
     if (experienceLevel === 'graduate') return true;
     if (!descriptionStr) return false;
     const lower = descriptionStr.toLowerCase();
-    return lower.includes('graduate') || 
-           lower.includes('no experience required') || 
+    return lower.includes('no experience required') || 
            lower.includes('entry level') ||
            lower.includes('0-1 years') ||
            lower.includes('0 - 1 years');
 };
+
+
 
 // Extract skills from description
 const parseSkills = (descriptionStr) => {
