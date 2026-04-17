@@ -13,7 +13,7 @@ import { Bar } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const API = "http://localhost:3000/api";
+const API = import.meta.env.VITE_API_URL;
 
 export default function Skills() {
   const [skills, setSkills] = useState([]);
