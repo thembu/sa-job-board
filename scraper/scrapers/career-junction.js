@@ -105,7 +105,8 @@ const scrape = async (params) => {
             job.experience_level = parseExperienceLevel(job.position, job.title);
 
             // Graduate friendly flag
-            job.is_graduate_friendly = parseGraduateFriendly(job.description, job.experience_level);
+            job.is_graduate_friendly = parseGraduateFriendly(job.description, job.title, job.experience_level, job.experience_years_min);
+
 
             // Extract skills
             job.skills = parseSkills(job.description);

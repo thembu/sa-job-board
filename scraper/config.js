@@ -5,25 +5,56 @@ module.exports = {
             enabled: true,
             baseUrl: 'https://www.careerjunction.co.za/jobs/results',
             params: {
-                keywords: 'junior software Developer',
+                keywords: 'Junior Software Developer',
                 autosuggestEndpoint: '/autosuggest',
-                Category: 16,        // Information Technology
-                Location: 2747,      // Gauteng
-                SortBy: 'Relevance',
-                lr: 4
+                location: 16149,
+                category: 16,
             }
-        }
-        // Future sources get added here:
-        // {
-        //     name: 'offerzen',
-        //     enabled: true,
-        //     baseUrl: '...',
-        //     params: { ... }
-        // }
+        },
+        {
+            name: 'careerjunction',
+            enabled: true,
+            baseUrl: 'https://www.careerjunction.co.za/jobs/results',
+            params: {
+                keywords: 'Junior Software Developer',
+                autosuggestEndpoint: '/autosuggest',
+                location: 13131,
+                category: 16,
+            }
+        },
+        {
+            name: 'careerjunction',
+            enabled: true,
+            baseUrl: 'https://www.careerjunction.co.za/jobs/results',
+            params: {
+                keywords: 'junior software',
+                autosuggestEndpoint: '/autosuggest',
+                location: 2747,
+                category: 16,
+            }
+        },
+        {
+            name: 'careerjunction',
+            enabled: true,
+            baseUrl: 'https://www.careerjunction.co.za/jobs/results',
+            params: {
+                keywords: 'junior software',
+                autosuggestEndpoint: '/autosuggest',
+                location: 16149,
+                category: 16,
+            }
+        },
+        {
+            name: 'careerjunction',
+            enabled: true,
+            baseUrl: 'https://www.careerjunction.co.za/jobs/results',
+            params: {
+                keywords: 'junior Analyst',
+                autosuggestEndpoint: '/autosuggest',
+                location: 16149,
+                category: '',
+            }
+        },
     ],
 
-    filters: {
-        category: 'Information Technology',
-        location: 'Gauteng',
-    }
 }

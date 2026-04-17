@@ -28,34 +28,32 @@ const parseExperienceYears = (descriptionStr) => {
 };
 
 const parseExperienceLevel = (positionStr, titleStr) => {
-    // Check title first — it's more reliable
     const title = titleStr.toLowerCase();
     if (title.includes('senior') || title.includes('lead') || title.includes('expert') || title.includes('principal')) return 'senior';
     if (title.includes('intermediate') || title.includes('mid-level') || title.includes('mid level')) return 'intermediate';
-    if (title.includes('junior') || title.includes('jr ')) return 'junior';
-    if (title.includes('graduate') || title.includes('intern')) return 'graduate';
+    if (title.includes('junior') || title.includes('jr ') || title.includes('graduate') || title.includes('intern')) return 'junior';
 
-    // Fall back to position string only if title has no level info
     const position = positionStr ? positionStr.toLowerCase() : '';
     if (position.includes('senior') || position.includes('lead')) return 'senior';
     if (position.includes('intermediate')) return 'intermediate';
-    if (position.includes('junior')) return 'junior';
-    if (position.includes('graduate') || position.includes('entry')) return 'graduate';
+    if (position.includes('junior') || position.includes('graduate') || position.includes('entry')) return 'junior';
 
     return null;
 };
 
-const parseGraduateFriendly = (descriptionStr, experienceLevel) => {
+const parseGraduateFriendly = (descriptionStr, titleStr, experienceLevel, experienceYearsMin) => {
     if (experienceLevel === 'senior' || experienceLevel === 'intermediate') return false;
-    if (experienceLevel === 'graduate') return true;
+    // Graduate in the title is a strong signal
+    if (titleStr && titleStr.toLowerCase().includes('graduate')) return true;
+    // Junior role with 0-2 years experience
+    if (experienceLevel === 'junior' && (experienceYearsMin === null || experienceYearsMin <= 2)) return true;
     if (!descriptionStr) return false;
     const lower = descriptionStr.toLowerCase();
-    return lower.includes('no experience required') || 
+    return lower.includes('no experience required') ||
            lower.includes('entry level') ||
            lower.includes('0-1 years') ||
            lower.includes('0 - 1 years');
 };
-
 
 
 // Extract skills from description
