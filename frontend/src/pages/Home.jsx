@@ -77,6 +77,25 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
       {/* Nav */}
+
+      {/* Nav */}
+<nav className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
+  <div className="flex items-center gap-2">
+    <div className="w-7 h-7 bg-amber-500 rounded-md flex items-center justify-center">
+      <span className="text-black font-black text-xs">SA</span>
+    </div>
+    <span className="font-bold text-white tracking-tight">DevJobs</span>
+  </div>
+  <div className="flex items-center gap-6">
+    <a href="/" className="text-amber-400 text-sm font-semibold border-b border-amber-400 pb-0.5">Jobs</a>
+    <a href="/skills" className="text-zinc-400 hover:text-white text-sm transition-colors">Skills</a>
+    <a href="/salaries" className="text-zinc-400 hover:text-white text-sm transition-colors">Salaries</a>
+    <div className="flex items-center gap-1 text-zinc-500 text-xs ml-2">
+      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+      Updated nightly
+    </div>
+  </div>
+</nav>
       
 
       {/* Hero */}
