@@ -106,7 +106,7 @@ export default function JobDrawer({ job, onClose }) {
             rel="noopener noreferrer"
             className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-black font-semibold py-3 rounded-xl transition-colors"
           >
-            Apply on CareerJunction →
+            Apply on {job.source}
           </a>
         </div>
       </div>

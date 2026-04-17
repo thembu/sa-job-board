@@ -1,9 +1,14 @@
 // Extract salary min/max from string like "R60,000 - R80,000 per month"
 const parseSalary = (salaryStr) => {
-    if (!salaryStr || salaryStr.includes('Undisclosed')) return { min: null, max: null };
+    if (!salaryStr || salaryStr.includes('Undisclosed') || salaryStr.includes('Market related')) 
+        return { min: null, max: null };
     const numbers = salaryStr.replace(/R|,|\s/g, '').match(/\d+/g);
     if (!numbers || numbers.length < 2) return { min: null, max: null };
-    return { min: parseInt(numbers[0]), max: parseInt(numbers[1]) };
+    const min = parseInt(numbers[0]);
+    const max = parseInt(numbers[1]);
+    // Ignore values that aren't realistic salaries
+    if (min < 1000 || max < 1000) return { min: null, max: null };
+    return { min, max };
 };
 
 // Extract job type from position string like "Contract Senior position"

@@ -1,7 +1,13 @@
-const { scrape } = require('./scrapers/career-junction');
+const { scrape: scrapeCareerJunction } = require('./scrapers/career-junction');
+const { scrape: scrapePnet } = require('./scrapers/p-net');
 const config = require('./config');
 const pool = require('../backend/db');
 require('dotenv').config({ path: '../backend/.env' });
+
+const scrapers = {
+    careerjunction: scrapeCareerJunction,
+    pnet: scrapePnet,
+};
 
 const seedJobs = async (jobs) => {
     let inserted = 0;
@@ -12,7 +18,6 @@ const seedJobs = async (jobs) => {
         try {
             await conn.beginTransaction();
 
-            // Check for duplicate
             const [existing] = await conn.query(
                 'SELECT id FROM jobs WHERE hash = ?', [job.hash]
             );
@@ -23,7 +28,6 @@ const seedJobs = async (jobs) => {
                 continue;
             }
 
-            // Insert job
             const [result] = await conn.query(
                 `INSERT INTO jobs 
                 (title, company, location, salary_min, salary_max, job_type, 
@@ -51,22 +55,10 @@ const seedJobs = async (jobs) => {
 
             const jobId = result.insertId;
 
-            // Insert skills and link to job
             for (const skillName of job.skills) {
-                await conn.query(
-                    'INSERT IGNORE INTO skills (name) VALUES (?)',
-                    [skillName]
-                );
-
-                const [skill] = await conn.query(
-                    'SELECT id FROM skills WHERE name = ?',
-                    [skillName]
-                );
-
-                await conn.query(
-                    'INSERT IGNORE INTO job_skills (job_id, skill_id) VALUES (?, ?)',
-                    [jobId, skill[0].id]
-                );
+                await conn.query('INSERT IGNORE INTO skills (name) VALUES (?)', [skillName]);
+                const [skill] = await conn.query('SELECT id FROM skills WHERE name = ?', [skillName]);
+                await conn.query('INSERT IGNORE INTO job_skills (job_id, skill_id) VALUES (?, ?)', [jobId, skill[0].id]);
             }
 
             await conn.commit();
@@ -84,7 +76,6 @@ const seedJobs = async (jobs) => {
     return { inserted, skipped };
 };
 
-// Lambda handler — this is what AWS calls
 exports.handler = async (event) => {
     try {
         const enabledSources = config.sources.filter(s => s.enabled);
@@ -93,8 +84,14 @@ exports.handler = async (event) => {
         let totalSkipped = 0;
 
         for (const source of enabledSources) {
-            console.log(`Scraping ${source.name}...`);
-            const jobs = await scrape(source.params);
+            const scraperFn = scrapers[source.scraper];
+            if (!scraperFn) {
+                console.log(`✗ No scraper found for: ${source.scraper} — skipping`);
+                continue;
+            }
+
+            console.log(`Scraping ${source.name} — ${source.params.url || source.params.keywords}...`);
+            const jobs = await scraperFn(source.params);
             console.log(`Found ${jobs.length} jobs from ${source.name}`);
 
             const { inserted, skipped } = await seedJobs(jobs);
@@ -121,7 +118,6 @@ exports.handler = async (event) => {
     }
 };
 
-// Allow local testing with: node index.js
 if (require.main === module) {
     exports.handler().then(result => {
         console.log(result.body);

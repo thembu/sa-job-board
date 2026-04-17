@@ -1,0 +1,109 @@
+[
+  {
+    "title": "JUNIOR SOFTWARE DEVELOPER",
+    "company": "Brentwood",
+    "location": "Elandsfontein",
+    "salary_min": null,
+    "salary_max": null,
+    "job_type": "Permanent",
+    "description": "Education:\n\nGrade 12\nBachelors degree in Computer Engineering, Software Engineering, Computer Science or and equivalent degree from a recognised tertiary institution\n\nExperience:\n\nProgramming experience in any of the following: C++, Python, JavaScript, SQL, Visual Basic\nNet and business objects would be advantageous\nInterest in Embedded Platform Development, Single Board Computers, Microcontrollers, Firmware Development, circuit boards and setting up electronic circuitry\nExposure to ERP systems in a stock driven environment would be beneficial\n\nKey Responsibilities:\n\nDevelop business improvement software and electronics projects that increase the Company’s operational leverage. This meaning technology projects that help increase sales and/or decrease costs\nDevelop, modify, and maintain SQL Views, stored procedures, and data base triggers\nDevelop, modify, and maintain C++, Python, JavaScript and Visual Basic code\nSet up and maintain embedded platforms and microcontroller circuit boards\nDevelop, control, and maintain business workflow utilising Laserfiche electronic document management systems and process automation\nDevelop, control, and maintain the Laserfiche repositories.\nDevelop, modify, maintain, and optimize SSRS reports\nAssist with troubleshooting, software, and operating system issues as and when required\nTest and document software",
+    "url": "https://www.pnet.co.za/jobs--JUNIOR-SOFTWARE-DEVELOPER-Elandsfontein-Brentwood--4171820-inline.html",
+    "source": "pnet",
+    "hash": "27272999bc48f801761943c1c6f2e62dadef47f94d9c6d6059873c98bdac26ca",
+    "date_posted": "2026-04-14",
+    "experience_level": "junior",
+    "experience_years_min": null,
+    "experience_years_max": null,
+    "is_graduate_friendly": 1,
+    "skills": [
+      "JavaScript",
+      "Python"
+    ]
+  },
+  {
+    "title": "Junior Embedded Software Developer",
+    "company": "E and D Recruiters",
+    "location": "JHB - Eastern Suburbs",
+    "salary_min": null,
+    "salary_max": null,
+    "job_type": "Permanent",
+    "description": "Electronic Embedded Design EngineerJohannesburg EastOur client is looking for a junior embedded software developer to join their team and work on firmware for real-world power electronics products, including power inverters, batteries, and rectifiers. The role involves developing efficient, reliable low-level software in C/C++ that runs close to the hardware, interfaces with sensors and actuators, communicates with other devices, and supports diagnostics and field reliability.Qualification Required:\n\nBachelor’s degree in Computer Engineering, Electronic Engineering, or Electrical Engineering\nMore than 2 years’ experience\n\nResponsibilities:\n\nGit (daily use), SSH (remote access/auth), Docker (basic usage for dev/test environments)\nLinux terminal basics (shell usage, logs, processes, file permissions)\nNetworking fundamentals (IP addressing, ports, basic troubleshooting)\nAPI design fundamentals (how devices/services expose data and commands; clear interface definitions)\nAutomated testing practices (unit + integration; exposure to end-to-end testing is a plus)\nEmbedded C and C++\n\nApply via www.edrecruiters.co.za or submit your CV to cv@edrecruiters.co.za. Please refer to Reference number: 3913.Companies may expire positions at their discretion.ONLY SA CITIZENS NEED TO APPLY (No permanent residents or non-SA)",
+    "url": "https://www.pnet.co.za/jobs--Junior-Embedded-Software-Developer-JHB-Eastern-Suburbs-E-and-D-Recruiters--4169870-inline.html",
+    "source": "pnet",
+    "hash": "55df91b950727656293a3d1e1f8d7f5f0e757da7c32421ccb9af2beb91e91e71",
+    "date_posted": "2026-04-10",
+    "experience_level": "junior",
+    "experience_years_min": 2,
+    "experience_years_max": null,
+    "is_graduate_friendly": 1,
+    "skills": [
+      "Docker",
+      "Git",
+      "Linux"
+    ]
+  },
+  {
+    "title": "Junior Application Software Developer",
+    "company": "E and D Recruiters",
+    "location": "JHB - Eastern Suburbs",
+    "salary_min": null,
+    "salary_max": null,
+    "job_type": "Permanent",
+    "description": "Junior Application Software DeveloperKempton ParkOur client is hiring a junior embedded software developer to help expand and maintain firmware running on real-world power electronics products (power inverters, batteries, rectifiers).The role focuses on building reliable, efficient low-level software in C/C++ that runs close to the hardware, interfaces with sensors/actuators, communicates with other devices, and supports diagnostics and field reliability. Typical problems include predictable timing behavior, working within limited memory/CPU, investigating bugs that can involve both hardware and software, and improving maintainability across product variants.Qualification:\n\nBachelor’s degree in Computer Engineering, Electronic Engineering, or Electrical Engineering\n1–2 years experience\n\nResponsibilities:\n\nGit (daily use), SSH (remote access/auth), Docker (basic usage for dev/test environments)\nLinux terminal basics (shell usage, logs, processes, file permissions)\nNetworking fundamentals (IP addressing, ports, basic troubleshooting)\nAPI design fundamentals (how devices/services expose data and commands; clear interface definitions)\nAutomated testing practices (unit + integration; exposure to end-to-end testing is a plus)\nEmbedded C and C++\n\nPlease apply via our website: www.edrecruiters.co.za or alternatively submit your cv to cv@edrecruiters.co.za - Reference Pta003902Companies may expire jobs at their discretion.ONLY SA CITIZENS APPLY",
+    "url": "https://www.pnet.co.za/jobs--Junior-Application-Software-Developer-JHB-Eastern-Suburbs-E-and-D-Recruiters--4169868-inline.html",
+    "source": "pnet",
+    "hash": "34605eab15f2a95f2813cd851e6f6a064e9836dacf39dbc3658dd723d27b9368",
+    "date_posted": "2026-04-10",
+    "experience_level": "junior",
+    "experience_years_min": 1,
+    "experience_years_max": 2,
+    "is_graduate_friendly": 1,
+    "skills": [
+      "Docker",
+      "Git",
+      "Linux"
+    ]
+  },
+  {
+    "title": "Junior Software Engineer",
+    "company": "Placement Specialist Pty Ltd",
+    "location": "Bryanston",
+    "salary_min": 25000,
+    "salary_max": 0,
+    "job_type": "Permanent",
+    "description": "Tech Stack:\n\n\n\tC# - Data Structures & Algorithms\n\tSQL\n\tLINQ\n\tHTML & CSS\n\tJavascript / Typescript\n\tAngular / Blazor\n\tNet Web API \n\tC#\n\tASP.Net MVC\n\tJavascript        \n\tEntity Framework\n\tSSAS / SSIS / SSRS\n\tRelational Database Design\n\tSQL and TSQL Scripting\n\tMS Net Framework \n\n\n \n\nResponsibilities:\n\n\n\tAssisting with all aspects of software design and coding\n\tLearning the codebase and improving your coding skills\n\tGaining knowledge and understanding of the full development life cycle\n\tWriting and maintaining code\n\tWorking on minor bug fixes\n\tMonitoring the technical performance of systems\n\tResponding to online requests\n\tGathering information from clients about program functionality\n\tWriting reports\n\tConducting development tests",
+    "url": "https://www.pnet.co.za/jobs--Junior-Software-Engineer-Bryanston-Placement-Specialist-Pty-Ltd--3980008-inline.html",
+    "source": "pnet",
+    "hash": "28b5c29c1b83e641b2c1fdce5770c46b580c8f95fd180ca70d92305bd804ff11",
+    "date_posted": "2026-04-15",
+    "experience_level": "junior",
+    "experience_years_min": null,
+    "experience_years_max": null,
+    "is_graduate_friendly": 1,
+    "skills": [
+      "JavaScript",
+      "TypeScript",
+      "Angular",
+      "HTML",
+      "CSS"
+    ]
+  },
+  {
+    "title": "B.Sc junior developer  EXCELLENT  MATRIC AND UNIVERSITY GRADES ESSENTIAL",
+    "company": "Computer Experts Personnel",
+    "location": "melrose arch",
+    "salary_min": 35,
+    "salary_max": 25,
+    "job_type": "Permanent",
+    "description": "A junior developer  with  excellent matric and  university grades\n\nMust have a B.Sc (comp sc) or engineering degree\n\nExcellent matric maths score\n\nCandidate will develop in technologically cutting edge environemnt",
+    "url": "https://www.pnet.co.za/jobs--B-Sc-junior-developer-EXCELLENT-MATRIC-AND-UNIVERSITY-GRADES-ESSENTIAL-melrose-arch-Computer-Experts-Personnel--4036899-inline.html",
+    "source": "pnet",
+    "hash": "48b509627cad3292c9a71f00e6e235f3e7a288181078197f33ac6c5451ab0c57",
+    "date_posted": "2026-04-08",
+    "experience_level": "junior",
+    "experience_years_min": null,
+    "experience_years_max": null,
+    "is_graduate_friendly": 1,
+    "skills": []
+  }
+]
