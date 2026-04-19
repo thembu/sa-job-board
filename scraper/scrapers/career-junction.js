@@ -17,9 +17,6 @@ const headers = {
 };
 
 
-
-
-
 // Generate deduplication hash
 const generateHash = (title, company, datePosted) => {
     const crypto = require('crypto');
@@ -27,7 +24,6 @@ const generateHash = (title, company, datePosted) => {
         .update(`${title}${company}${datePosted}`)
         .digest('hex');
 };
-
 
 // Build URL from config
 
